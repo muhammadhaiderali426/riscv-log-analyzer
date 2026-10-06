@@ -5,8 +5,7 @@ FORMAT="text"
 OUTPUT=""
 VERBOSE=0
 LOG_FILE=""
-
-# Function: usage/help message dikhati hai
+# Function: displays usage/help message
 show_help() {
     echo "Usage: $0 <log_file> [options]"
     echo ""
@@ -16,7 +15,7 @@ show_help() {
     echo "  --verbose             Enable verbose output"
     echo "  --help                Show this help message"
 }
-# Function: formatted report print karti hai
+# Function: print formatted report
 print_report() {
     echo "=== RISC-V Simulation Log Analysis ==="
     echo "Log file: $LOG_FILE"
@@ -50,7 +49,7 @@ print_report() {
         echo "--- Verdict: FAIL ---"
     fi
 }
-# Function: CSV format mein report print karti hai
+# Function: prints report in CSV format
 print_report_csv() {
     echo "metric,value"
     echo "total_tests,$TOTAL"
@@ -62,16 +61,16 @@ print_report_csv() {
     echo "max_time,$MAX_TIME"
     echo "avg_time,$AVG_TIME"
 }
-# Function: log file se stats nikalti hai
+# Function: extracts statistics from log file
 analyze_log() {
     local log_file="$1"
 
-    # Har status ki lines count karna
+    #  Count lines for each test status
     PASS_COUNT=$(grep -c "TEST PASS:" "$log_file" || true)
     FAIL_COUNT=$(grep -c "TEST FAIL:" "$log_file" || true)
     SKIP_COUNT=$(grep -c "TEST SKIP:" "$log_file" || true)
     TOTAL=$((PASS_COUNT + FAIL_COUNT + SKIP_COUNT))
-    # Pass rate nikalna (percentage)
+    # Calculate pass rate as a percentage
     if [[ "$TOTAL" -gt 0 ]]; then
         PASS_RATE=$(awk "BEGIN {printf \"%.1f\", ($PASS_COUNT/$TOTAL)*100}")
         FAIL_RATE=$(awk "BEGIN {printf \"%.1f\", ($FAIL_COUNT/$TOTAL)*100}")
@@ -82,12 +81,12 @@ analyze_log() {
         SKIP_RATE="0.0"
     fi
 
-    # Failing tests ke naam nikalna
+    # Extract names of failing tests
     FAILING_TESTS=$(grep "TEST FAIL:" "$log_file" | sed -E 's/.*TEST FAIL: ([a-zA-Z0-9_-]+).*/\1/' || true)
-     # Saare execution times nikalna (jo bracket mein hain, jaise 0.82s)
+     # Extract all execution times (values in parentheses, e.g. 0.82s)
     TIMES=$(grep -oE '\([0-9]+\.[0-9]+s\)' "$log_file" | tr -d '()s')
 
-    # Min, Max, Avg calculate karna
+    # Calculate min, max, and average execution time
     if [[ -n "$TIMES" ]]; then
         MIN_TIME=$(echo "$TIMES" | sort -n | head -1)
         MAX_TIME=$(echo "$TIMES" | sort -n | tail -1)
@@ -123,29 +122,28 @@ while [[ $# -gt 0 ]]; do
             ;;
     esac
 done
-# Validation: check karo log file diya gaya hai ya nahi
+# Validation: check if log file was provided
 if [[ -z "$LOG_FILE" ]]; then
     echo "Error: No log file specified." >&2
     show_help
     exit 1
 fi
 
-# Validation: check karo file maujood hai ya nahi
+# Validation: check if file exists
 if [[ ! -f "$LOG_FILE" ]]; then
     echo "Error: File '$LOG_FILE' not found." >&2
     exit 1
 fi
-# Analysis chalao
+# Run the analysis
 analyze_log "$LOG_FILE"
 
-# Abhi ke liye simple output (baad mein improve karenge)
-# Verbose mode: extra info dikhao
+# Verbose mode: print extra diagnostic info
 if [[ "$VERBOSE" -eq 1 ]]; then
     echo "[INFO] Analyzing log file: $LOG_FILE" >&2
     echo "[INFO] Output format: $FORMAT" >&2
 fi
 
-# Output: file mein ya screen par
+# Output: in file or on screen
 if [[ -n "$OUTPUT" ]]; then
     if [[ "$FORMAT" == "csv" ]]; then
         print_report_csv > "$OUTPUT"
@@ -160,8 +158,7 @@ else
         print_report
     fi
 fi
-
-# Exit code decide karna
+# Determine exit code based on results
 if [[ "$FAIL_COUNT" -gt 0 ]]; then
     exit 1
 else
