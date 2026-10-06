@@ -1,5 +1,9 @@
 #!/bin/bash
 set -euo pipefail
+# Color codes for output
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+NC='\033[0m' # No Color (reset)
 # Default values
 FORMAT="text"
 OUTPUT=""
@@ -44,9 +48,9 @@ print_report() {
     echo ""
 
     if [[ "$FAIL_COUNT" -eq 0 ]]; then
-        echo "--- Verdict: PASS ---"
+        echo -e "--- Verdict: ${GREEN}PASS${NC} ---"
     else
-        echo "--- Verdict: FAIL ---"
+       echo -e "--- Verdict: ${RED}FAIL${NC} ---"
     fi
 }
 # Function: prints report in CSV format
