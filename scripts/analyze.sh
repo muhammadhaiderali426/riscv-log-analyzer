@@ -7,7 +7,7 @@ VERBOSE=0
 LOG_FILE=""
 # Function: displays usage/help message
 show_help() {
-    echo "Usage: $0 <log_file> [options]"
+   echo "Usage: $0 <log_file> [options]  -- RISC-V Log Analyzer"
     echo ""
     echo "Options:"
     echo "  --format [text|csv]   Output format (default: text)"
