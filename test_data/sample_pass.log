@@ -1,0 +1,7 @@
+[2026-05-02 09:00:00] TEST START: rv32i-add
+[2026-05-02 09:00:01] TEST PASS: rv32i-add (0.50s)
+[2026-05-02 09:00:01] TEST START: rv32i-sub
+[2026-05-02 09:00:02] TEST PASS: rv32i-sub (0.48s)
+[2026-05-02 09:00:02] TEST START: rv32i-and
+[2026-05-02 09:00:03] TEST PASS: rv32i-and (0.45s)
+[2026-05-02 09:05:00] SUMMARY: 3 tests, 3 passed, 0 failed, 0 skipped

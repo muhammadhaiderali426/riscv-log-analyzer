@@ -1,0 +1,13 @@
+[2026-05-01 10:23:45] TEST START: rv32i-add
+[2026-05-01 10:23:46] TEST PASS: rv32i-add (0.52s)
+[2026-05-01 10:23:46] TEST START: rv32i-sll
+[2026-05-01 10:23:47] TEST FAIL: rv32i-sll (1.15s)
+[2026-05-01 10:23:47] ERROR: Signature mismatch at line 42
+[2026-05-01 10:23:47] TEST START: rv32i-beq
+[2026-05-01 10:23:48] TEST FAIL: rv32i-beq (0.98s)
+[2026-05-01 10:23:48] TEST START: rv32i-nop
+[2026-05-01 10:23:48] TEST PASS: rv32i-nop (0.42s)
+[2026-05-01 10:23:49] TEST START: rv32i-mul
+[2026-05-01 10:23:51] TEST PASS: rv32i-mul (2.31s)
+[2026-05-01 10:30:12] SUMMARY: 5 tests, 3 passed, 2 failed, 0 skipped
+
