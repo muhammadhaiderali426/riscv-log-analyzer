@@ -1,0 +1,10 @@
+# Generated output (gitignored as per spec)
+output/*
+
+# Keep the output folder structure but ignore its contents
+!output/.gitkeep
+
+# Editor/OS files
+.vscode/
+*.swp
+.DS_Store
