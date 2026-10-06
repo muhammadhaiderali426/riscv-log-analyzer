@@ -26,8 +26,8 @@ print_report() {
     echo ""
     echo "--- Results Summary ---"
     echo "Total tests: $TOTAL"
-    printf "Passed:      %d (%s%%)\n" "$PASS_COUNT" "$PASS_RATE"
-    printf "Failed:      %d (%s%%)\n" "$FAIL_COUNT" "$FAIL_RATE"
+    printf "${GREEN}Passed:${NC}      %d (%s%%)\n" "$PASS_COUNT" "$PASS_RATE"
+    printf "${RED}Failed:${NC}      %d (%s%%)\n" "$FAIL_COUNT" "$FAIL_RATE"
     printf "Skipped:     %d (%s%%)\n" "$SKIP_COUNT" "$SKIP_RATE"
     echo ""
 
